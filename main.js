@@ -23,7 +23,7 @@ function addTask(e){
         addTaskToDom(task)
         todoInput.value = "";
 
-    }
+    } 
  
 
 }
