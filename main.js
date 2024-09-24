@@ -35,10 +35,7 @@ function addTask(e){
         saveTaskToLocalStroge(task)
 
         todoInput.value = " ";
-
     } 
- 
-
 }
 
 
@@ -53,7 +50,32 @@ function addTaskToDom(task){
                 <button class="delete-btn">Delete</button>`           
     todoList.appendChild(li);
 
+    attachEventListeners(li, task)
+
 }
+
+function attachEventListeners(li, task){
+
+    const deleteBtn = li.querySelector('.delete-btn')
+    deleteBtn.addEventListener("click", function(){
+         handleDelete(task.id,li)
+         
+    })
+}
+
+
+function handleDelete(id, li){
+
+        let tasks = getTasksFromLocalStroge()
+
+        tasks = tasks.filter(task => task.id != id)
+
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+        li.remove()
+        
+
+
+} 
 
 function saveTaskToLocalStroge(task){
 
@@ -62,7 +84,6 @@ function saveTaskToLocalStroge(task){
     oldTasks.push(task)
 
     localStorage.setItem("tasks", JSON.stringify(oldTasks))
-
 }
 
 function getTasksFromLocalStroge(){
