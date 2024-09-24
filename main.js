@@ -57,9 +57,14 @@ function addTaskToDom(task){
 function attachEventListeners(li, task){
 
     const deleteBtn = li.querySelector('.delete-btn')
+    const editBtn  = li.querySelector('.edit-btn')
+
     deleteBtn.addEventListener("click", function(){
-         handleDelete(task.id,li)
-         
+         handleDelete(task.id,li)  
+    })
+
+    editBtn.addEventListener("click", function(){
+        handleEdit(task.id, li)
     })
 }
 
@@ -76,6 +81,23 @@ function handleDelete(id, li){
 
 
 } 
+
+function handleEdit(id,li){
+
+    const taskSpan = li.querySelector(".task")
+    console.log(taskSpan.textContent);
+
+    const newTaskText = prompt("Edit your tasks:", taskSpan.textContent)
+    
+    if(newTaskText !== null && newTaskText.trim() !== ""){
+
+        //update the local stroge
+        
+        //update the DOM
+        taskSpan.textContent = newTaskText;
+    }
+    
+}
 
 function saveTaskToLocalStroge(task){
 
