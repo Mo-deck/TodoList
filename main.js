@@ -92,11 +92,22 @@ function handleEdit(id,li){
     if(newTaskText !== null && newTaskText.trim() !== ""){
 
         //update the local stroge
-        
+        updateTask(id, newTaskText);
         //update the DOM
         taskSpan.textContent = newTaskText;
     }
-    
+}
+
+
+function updateTask(id, newTaskText){
+
+        const tasks = getTasksFromLocalStroge()
+        const task = tasks.find(task => task.id ==  id)
+        if(task){
+            task.text = newTaskText;
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+        }
+
 }
 
 function saveTaskToLocalStroge(task){
