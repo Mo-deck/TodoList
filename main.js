@@ -21,7 +21,7 @@ function addTask(e){
         }
         //adding to thr dom
         addTaskToDom(task)
-        todoInput.value = "";
+        saveTaskToLocalStroge(task)
 
     } 
  
@@ -39,5 +39,18 @@ function addTaskToDom(task){
                 <button class="edit-btn">Edit</button>
                 <button class="delete-btn">Delete</button>`           
     todoList.appendChild(li);
+
+}
+
+function saveTaskToLocalStroge(task){
+
+    const oldTasks = JSON.parse(localStorage.getItem("tasks")) || []
+
+    oldTasks.push(task)
+
+    
+    
+
+    localStorage.setItem("tasks", JSON.stringify(oldTasks))
 
 }
