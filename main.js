@@ -44,7 +44,7 @@ function addTaskToDom(task){
     const li = document.createElement('li')
     li.className = 'todo-item ${task.completed ? "completed" : ""}'
     li.dataset.id = task.id
-    li.innerHTML = ` <input type="checkbox" class= "complete-checkbox">
+    li.innerHTML = ` <input type="checkbox" class= "complete-checkbox" ${task.completed ? "checked" :""}>
                 <span class="task">${task.text}</span>
                 <button class="edit-btn">Edit</button>
                 <button class="delete-btn">Delete</button>`           
@@ -58,6 +58,7 @@ function attachEventListeners(li, task){
 
     const deleteBtn = li.querySelector('.delete-btn')
     const editBtn  = li.querySelector('.edit-btn')
+    const checkbox = li.querySelector("complete-checkbox")
 
     deleteBtn.addEventListener("click", function(){
          handleDelete(task.id,li)  
@@ -65,6 +66,10 @@ function attachEventListeners(li, task){
 
     editBtn.addEventListener("click", function(){
         handleEdit(task.id, li)
+    })
+
+    checkbox.addEventListener("change", function(){
+        toggleTaskCompletion(task.id, li, checkbox.checked)
     })
 }
 
@@ -108,6 +113,18 @@ function updateTask(id, newTaskText){
             localStorage.setItem('tasks', JSON.stringify(tasks))
         }
 
+}
+
+function toggleTaskCompletion(taskId, li, isCompleted){
+    const tasks = getTasksFromLocalStroge()
+
+    const task = tasks.find(task => task.id == taskId)
+
+    if(task){
+        task.completed = isCompleted
+      localStorage.setItem("tasks", JSON.stringify(tasks))
+      li.classList.toggle(".completed", isCompleted)
+    }
 }
 
 function saveTaskToLocalStroge(task){
