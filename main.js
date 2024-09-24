@@ -3,6 +3,17 @@ const todoInput = document.querySelector('#todo-input')
 const todoList = document.querySelector('#todo-list')
 
 
+document.addEventListener("DOMContentLoaded", loadTasks)
+
+function loadTasks(){
+
+    //getting all tasks from localstroge
+    const tasks = getTasksFromLocalStroge()
+    tasks.forEach(task => {
+        addTaskToDom(task)
+    });
+}
+
 //Adding submit
 
 todoForm.addEventListener("submit", addTask)
@@ -22,6 +33,8 @@ function addTask(e){
         //adding to thr dom
         addTaskToDom(task)
         saveTaskToLocalStroge(task)
+
+        todoInput.value = " ";
 
     } 
  
@@ -44,13 +57,15 @@ function addTaskToDom(task){
 
 function saveTaskToLocalStroge(task){
 
-    const oldTasks = JSON.parse(localStorage.getItem("tasks")) || []
+    const oldTasks = getTasksFromLocalStroge()
 
     oldTasks.push(task)
 
-    
-    
-
     localStorage.setItem("tasks", JSON.stringify(oldTasks))
 
+}
+
+function getTasksFromLocalStroge(){
+    const oldTasks = JSON.parse(localStorage.getItem("tasks")) || []
+    return oldTasks
 }
