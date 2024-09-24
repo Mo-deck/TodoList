@@ -16,3 +16,16 @@ function switchMode(){
          localStorage.setItem("mode", "light")
     }
 }
+
+window.addEventListener("DOMContentLoaded", function(){
+    //local stroge checking
+    const saveMode = localStorage.getItem("mode")
+    
+    if(saveMode == "dark"){
+        document.body.classList.add("dark-mode")
+        toggleButton.classList.add("dark-mode")
+    }else {
+
+    }
+    
+})
